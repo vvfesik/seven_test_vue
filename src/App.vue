@@ -12,6 +12,7 @@ export default {
 
 <style>
 #app {
-  height: 100%;
+  height: calc(100% - 2rem);
+  padding-top: 2rem;
 }
 </style>

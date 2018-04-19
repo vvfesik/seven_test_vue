@@ -1,5 +1,6 @@
 <template>
   <div class="ui center aligned basic segment">
+    <app-header></app-header>
     <h1>Posts Page</h1>
     <div class="ui primary button" @click="showModal = true">Add New</div>
     <div class="ui hidden divider"></div>
@@ -45,10 +46,13 @@
 
 <script>
 import axios from 'axios';
-import router from '../router';
+import Header from '@/components/shared/Header';
 
 export default {
   name: 'Posts',
+  components: {
+    AppHeader: Header
+  },
   data() {
     return {
       showModal: false,
@@ -59,6 +63,11 @@ export default {
       },
       posts: []
     };
+  },
+  beforeCreate() {
+    if (!window.localStorage.getItem('seven_test_auth_token')) {
+      this.$router.push({ path: '/' });
+    }
   },
   beforeMount() {
     this.fetchPosts();
@@ -77,7 +86,7 @@ export default {
         .catch(e => console.log(e));
     },
     handleEdit(id) {
-      router.push({
+      this.$router.push({
         path: `/postedit/${id}`
       });
     },

@@ -1,5 +1,6 @@
 <template>
   <div class="ui center aligned basic segment">
+    <app-header></app-header>
     <h1>Post Edit Page</h1>
     <div class="ui form">
       <div class="field">
@@ -23,10 +24,13 @@
 
 <script>
 import axios from 'axios';
-import router from '../router';
+import Header from '@/components/shared/Header';
 
 export default {
   name: 'Postedit',
+  components: {
+    AppHeader: Header
+  },
   data() {
     return {
       post: {
@@ -36,6 +40,11 @@ export default {
         author: ''
       }
     };
+  },
+  beforeCreate() {
+    if (!window.localStorage.getItem('seven_test_auth_token')) {
+      this.$router.push({ path: '/' });
+    }
   },
   beforeMount() {
     axios
@@ -55,7 +64,7 @@ export default {
           this.post
         )
         .then(res => {
-          router.push({ path: '/posts' });
+          this.$router.push({ path: '/posts' });
         })
         .catch(e => console.log(e));
     }
