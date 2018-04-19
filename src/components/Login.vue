@@ -53,7 +53,7 @@ export default {
       if (this.validateEmail(this.user.email) && this.user.password) {
         axios
           .post(
-            'http://fesik.pp.ua/directus/api/1.1/auth/request-token',
+            'https://fesik.pp.ua/directus/api/1.1/auth/request-token',
             this.user
           )
           .then(res => {
